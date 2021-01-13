@@ -44,7 +44,11 @@ func runFyneApp() {
 				panic(err)
 			}
 
-			pd.WritePixels(pixels)
+			err := pd.WritePixels(pixels)
+
+			if err != nil {
+				panic(err)
+			}
 		}),
 		widget.NewSlider(0, 1000),
 	))

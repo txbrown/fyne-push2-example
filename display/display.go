@@ -105,9 +105,13 @@ type contextReader interface {
 // WritePixels - sends pixels to Ableton Push 2 display
 func (d *AbletonPush2Display) WritePixels(pixels []uint8) error {
 
-	outEp, _ := d.intf.OutEndpoint(1)
+	outEp, err := d.intf.OutEndpoint(1)
 
-	_, err := outEp.Write(frameHeader)
+	if err != nil {
+		return err
+	}
+
+	_, err = outEp.Write(frameHeader)
 
 	if err != nil {
 		return err
